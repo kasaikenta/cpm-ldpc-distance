@@ -1,3 +1,4 @@
+\input{figures/example34_symbols.tex}
 \definecolor{exampleJzero}{RGB}{0,114,178}
 \definecolor{exampleJone}{RGB}{213,94,0}
 \definecolor{exampleJtwo}{RGB}{0,158,115}
@@ -5,7 +6,6 @@
   g0/.style={exampleJzero,line width=0.7pt},
   g1/.style={exampleJone,dashed,line width=0.85pt},
   g2/.style={exampleJtwo,densely dotted,line width=1pt,preaction={draw=white,solid,line width=2.2pt}},
-  vertex/.style={circle,draw=black,line width=0.25pt,fill=black,minimum size=1.6mm,inner sep=0pt},
   vertexlabel/.style={font=\scriptsize,inner sep=0pt,text=black}]
 \coordinate (v0) at (-2.97861,2.56500);
 \coordinate (v1) at (-1.02139,1.43500);
@@ -67,53 +67,125 @@
 \draw[g2] (v14) .. controls (0.02910,0.94882) and (2.21096,0.46402) .. (v22);
 \draw[g2] (v15) .. controls (-2.21096,-0.46402) and (-0.02910,-0.94882) .. (v23);
 \draw[g2] (v10) .. controls (4.17861,-0.85500) and (4.17861,0.85500) .. (v16);
-\node[vertex] at (v0) {};
+\fill[white] (v0) circle[radius=1.1mm];
+\begin{scope}[shift={(v0)},x=2mm,y=2mm]
+\path[fill=exampleV0] (0,0) circle[radius=0.5];
+\end{scope}
 \node[vertexlabel] at (-2.63220,2.36500) {$(0,6)$};
-\node[vertex] at (v1) {};
+\fill[white] (v1) circle[radius=1.1mm];
+\begin{scope}[shift={(v1)},x=2mm,y=2mm]
+\path[fill=exampleV0] (-0.5,-0.5) rectangle (0.5,0.5);
+\end{scope}
 \node[vertexlabel] at (-1.36780,1.63500) {$(0,7)$};
-\node[vertex] at (v2) {};
+\fill[white] (v2) circle[radius=1.1mm];
+\begin{scope}[shift={(v2)},x=2mm,y=2mm]
+\path[fill=exampleV0] (0,0.5) -- (-0.5,-0.5) -- (0.5,-0.5) -- cycle;
+\end{scope}
 \node[vertexlabel] at (2.63220,1.63500) {$(0,9)$};
-\node[vertex] at (v3) {};
+\fill[white] (v3) circle[radius=1.1mm];
+\begin{scope}[shift={(v3)},x=2mm,y=2mm]
+\path[fill=exampleV0] (0,0.5) -- (-0.5,0) -- (0,-0.5) -- (0.5,0) -- cycle;
+\end{scope}
 \node[vertexlabel] at (1.36780,2.36500) {$(0,11)$};
-\node[vertex] at (v4) {};
+\fill[white] (v4) circle[radius=1.1mm];
+\begin{scope}[shift={(v4)},x=2mm,y=2mm]
+\path[fill=exampleV0] (0,-0.5) -- (-0.5,0.5) -- (0.5,0.5) -- cycle;
+\end{scope}
 \node[vertexlabel] at (2.00000,-2.73000) {$(0,16)$};
-\node[vertex] at (v5) {};
+\fill[white] (v5) circle[radius=1.1mm];
+\begin{scope}[shift={(v5)},x=2mm,y=2mm]
+\path[fill=exampleV0] (-0.18,0.5) -- (0.18,0.5) -- (0.18,0.18) -- (0.5,0.18) -- (0.5,-0.18) -- (0.18,-0.18) -- (0.18,-0.5) -- (-0.18,-0.5) -- (-0.18,-0.18) -- (-0.5,-0.18) -- (-0.5,0.18) -- (-0.18,0.18) -- cycle;
+\end{scope}
 \node[vertexlabel] at (2.00000,-1.27000) {$(0,19)$};
-\node[vertex] at (v6) {};
+\fill[white] (v6) circle[radius=1.1mm];
+\begin{scope}[shift={(v6)},x=2mm,y=2mm]
+\path[fill=exampleV1] (0,0) circle[radius=0.5];
+\end{scope}
 \node[vertexlabel] at (-1.36780,-2.36500) {$(1,2)$};
-\node[vertex] at (v7) {};
+\fill[white] (v7) circle[radius=1.1mm];
+\begin{scope}[shift={(v7)},x=2mm,y=2mm]
+\path[fill=exampleV1] (-0.5,-0.5) rectangle (0.5,0.5);
+\end{scope}
 \node[vertexlabel] at (-2.63220,-1.63500) {$(1,4)$};
-\node[vertex] at (v8) {};
+\fill[white] (v8) circle[radius=1.1mm];
+\begin{scope}[shift={(v8)},x=2mm,y=2mm]
+\path[fill=exampleV1] (0,0.5) -- (-0.5,-0.5) -- (0.5,-0.5) -- cycle;
+\end{scope}
 \node[vertexlabel] at (-2.00000,2.73000) {$(1,5)$};
-\node[vertex] at (v9) {};
+\fill[white] (v9) circle[radius=1.1mm];
+\begin{scope}[shift={(v9)},x=2mm,y=2mm]
+\path[fill=exampleV1] (0,0.5) -- (-0.5,0) -- (0,-0.5) -- (0.5,0) -- cycle;
+\end{scope}
 \node[vertexlabel] at (-2.00000,1.27000) {$(1,7)$};
-\node[vertex] at (v10) {};
+\fill[white] (v10) circle[radius=1.1mm];
+\begin{scope}[shift={(v10)},x=2mm,y=2mm]
+\path[fill=exampleV1] (0,-0.5) -- (-0.5,0.5) -- (0.5,0.5) -- cycle;
+\end{scope}
 \node[vertexlabel] at (2.63220,-2.36500) {$(1,15)$};
-\node[vertex] at (v11) {};
+\fill[white] (v11) circle[radius=1.1mm];
+\begin{scope}[shift={(v11)},x=2mm,y=2mm]
+\path[fill=exampleV1] (-0.18,0.5) -- (0.18,0.5) -- (0.18,0.18) -- (0.5,0.18) -- (0.5,-0.18) -- (0.18,-0.18) -- (0.18,-0.5) -- (-0.18,-0.5) -- (-0.18,-0.18) -- (-0.5,-0.18) -- (-0.5,0.18) -- (-0.18,0.18) -- cycle;
+\end{scope}
 \node[vertexlabel] at (1.36780,-1.63500) {$(1,19)$};
-\node[vertex] at (v12) {};
+\fill[white] (v12) circle[radius=1.1mm];
+\begin{scope}[shift={(v12)},x=2mm,y=2mm]
+\path[fill=exampleV2] (0,0) circle[radius=0.5];
+\end{scope}
 \node[vertexlabel] at (-2.00000,-2.73000) {$(2,1)$};
-\node[vertex] at (v13) {};
+\fill[white] (v13) circle[radius=1.1mm];
+\begin{scope}[shift={(v13)},x=2mm,y=2mm]
+\path[fill=exampleV2] (-0.5,-0.5) rectangle (0.5,0.5);
+\end{scope}
 \node[vertexlabel] at (-2.00000,-1.27000) {$(2,4)$};
-\node[vertex] at (v14) {};
+\fill[white] (v14) circle[radius=1.1mm];
+\begin{scope}[shift={(v14)},x=2mm,y=2mm]
+\path[fill=exampleV2] (0,0.5) -- (-0.5,-0.5) -- (0.5,-0.5) -- cycle;
+\end{scope}
 \node[vertexlabel] at (-1.36780,2.36500) {$(2,5)$};
-\node[vertex] at (v15) {};
+\fill[white] (v15) circle[radius=1.1mm];
+\begin{scope}[shift={(v15)},x=2mm,y=2mm]
+\path[fill=exampleV2] (0,0.5) -- (-0.5,0) -- (0,-0.5) -- (0.5,0) -- cycle;
+\end{scope}
 \node[vertexlabel] at (-2.63220,1.63500) {$(2,6)$};
-\node[vertex] at (v16) {};
+\fill[white] (v16) circle[radius=1.1mm];
+\begin{scope}[shift={(v16)},x=2mm,y=2mm]
+\path[fill=exampleV2] (0,-0.5) -- (-0.5,0.5) -- (0.5,0.5) -- cycle;
+\end{scope}
 \node[vertexlabel] at (2.63220,2.36500) {$(2,7)$};
-\node[vertex] at (v17) {};
+\fill[white] (v17) circle[radius=1.1mm];
+\begin{scope}[shift={(v17)},x=2mm,y=2mm]
+\path[fill=exampleV2] (-0.18,0.5) -- (0.18,0.5) -- (0.18,0.18) -- (0.5,0.18) -- (0.5,-0.18) -- (0.18,-0.18) -- (0.18,-0.5) -- (-0.18,-0.5) -- (-0.18,-0.18) -- (-0.5,-0.18) -- (-0.5,0.18) -- (-0.18,0.18) -- cycle;
+\end{scope}
 \node[vertexlabel] at (1.36780,1.63500) {$(2,11)$};
-\node[vertex] at (v18) {};
+\fill[white] (v18) circle[radius=1.1mm];
+\begin{scope}[shift={(v18)},x=2mm,y=2mm]
+\path[fill=exampleV3] (0,0) circle[radius=0.5];
+\end{scope}
 \node[vertexlabel] at (-2.63220,-2.36500) {$(3,1)$};
-\node[vertex] at (v19) {};
+\fill[white] (v19) circle[radius=1.1mm];
+\begin{scope}[shift={(v19)},x=2mm,y=2mm]
+\path[fill=exampleV3] (-0.5,-0.5) rectangle (0.5,0.5);
+\end{scope}
 \node[vertexlabel] at (-1.36780,-1.63500) {$(3,2)$};
-\node[vertex] at (v20) {};
+\fill[white] (v20) circle[radius=1.1mm];
+\begin{scope}[shift={(v20)},x=2mm,y=2mm]
+\path[fill=exampleV3] (0,0.5) -- (-0.5,-0.5) -- (0.5,-0.5) -- cycle;
+\end{scope}
 \node[vertexlabel] at (2.00000,2.73000) {$(3,7)$};
-\node[vertex] at (v21) {};
+\fill[white] (v21) circle[radius=1.1mm];
+\begin{scope}[shift={(v21)},x=2mm,y=2mm]
+\path[fill=exampleV3] (0,0.5) -- (-0.5,0) -- (0,-0.5) -- (0.5,0) -- cycle;
+\end{scope}
 \node[vertexlabel] at (2.00000,1.27000) {$(3,9)$};
-\node[vertex] at (v22) {};
+\fill[white] (v22) circle[radius=1.1mm];
+\begin{scope}[shift={(v22)},x=2mm,y=2mm]
+\path[fill=exampleV3] (0,-0.5) -- (-0.5,0.5) -- (0.5,0.5) -- cycle;
+\end{scope}
 \node[vertexlabel] at (2.63220,-1.63500) {$(3,15)$};
-\node[vertex] at (v23) {};
+\fill[white] (v23) circle[radius=1.1mm];
+\begin{scope}[shift={(v23)},x=2mm,y=2mm]
+\path[fill=exampleV3] (-0.18,0.5) -- (0.18,0.5) -- (0.18,0.18) -- (0.5,0.18) -- (0.5,-0.18) -- (0.18,-0.18) -- (0.18,-0.5) -- (-0.18,-0.5) -- (-0.18,-0.18) -- (-0.5,-0.18) -- (-0.5,0.18) -- (-0.18,0.18) -- cycle;
+\end{scope}
 \node[vertexlabel] at (1.36780,-2.36500) {$(3,16)$};
 \draw[g0] (-2.7,-4.2) -- (-2.1,-4.2) node[right,black,font=\small] {$j=0$};
 \draw[g1] (-0.7,-4.2) -- (-0.09999999999999998,-4.2) node[right,black,font=\small] {$j=1$};

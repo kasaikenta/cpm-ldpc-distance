@@ -162,7 +162,7 @@ the reported distances rests on the algorithm's completeness argument, the
 archived complete runs, the independently checked upper-bound words, and the
 available rerun source. No proof-assistant or SAT nonexistence certificate is
 claimed. Source and data are available in the public repository linked above.
-The v1.1.2 tag identifies the published verification package for this table.
+The v1.1.3 tag identifies the published verification package for this table.
 
 ## Current and historical archives
 
@@ -172,3 +172,9 @@ The additional J=4 bounds and exact distances are verified from
 `J4_distance_refinement_verification.zip` in the same directory.
 Older J=4 distance-24 archives are not included in this repository and are
 not the source of the current table. Use the commands above for this version.
+
+The figure generator uses 24 distinct color/shape pairs for support positions.
+The TikZ codeword strip and graph use identical symbols; vertex coordinates,
+edges, and the highlighted matrix entries are unchanged.
+`figures/example34_symbols.tex` defines their four colors.
+The paper uses `figures/example34_codeword.tex`; the original binary PNG is retained as a reference.

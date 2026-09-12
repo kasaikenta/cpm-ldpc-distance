@@ -35,7 +35,7 @@ the parity-check matrix, a weight-24 codeword, and the graph of paired positions
 ## Get the published version
 
 ```sh
-git clone --branch v1.1.2 https://github.com/kasaikenta/cpm-ldpc-distance.git
+git clone --branch v1.1.3 https://github.com/kasaikenta/cpm-ldpc-distance.git
 cd cpm-ldpc-distance
 ```
 
@@ -101,7 +101,7 @@ checked: every command above selects classical mode with no stabilizer rows.
   the TikZ source requires LaTeX and TikZ.
 - `SHA256SUMS`: hashes of the published source, data, and documentation files.
 
-The tag `v1.1.2` identifies the verification package for the table above.
+The tag `v1.1.3` identifies the verification package for the table above.
 The earlier tag `v1.0.0` retains the original eight-entry package.
 Historical archive filenames retain their original distance targets; the table
 and refinement records give the current results.
@@ -115,3 +115,9 @@ and refinement records give the current results.
 行列の強調した72個の1とグラフの36辺の対応も確認します。
 探索そのものを再実行する場合は `reproduce.py` を使い、同じコマンドで再開できます。
 J=4, L=8 の最小距離は未確定で、現在の範囲は 30 <= d <= 46 です。
+
+The codeword strip and graph now share 24 distinct symbols (four colors and six shapes),
+so each nonzero component can be matched with its graph vertex. Vertex coordinates,
+edges, codeword support, and matrix highlights are unchanged.
+The generated TikZ strip is `figures/example34_codeword.tex`; both panels use
+`figures/example34_symbols.tex` for colors. The binary PNG remains a reference.

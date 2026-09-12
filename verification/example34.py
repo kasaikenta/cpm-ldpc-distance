@@ -279,6 +279,26 @@ def write_png(path, cells, scale=8, block_size=None, highlighted_columns=None):
     path.write_bytes(png)
 
 
+# Each support position has a unique (block color, within-block shape) pair.
+MARKER_COLORS = [(0, 90, 160), (190, 70, 0), (0, 125, 90), (155, 55, 140)]
+MARKER_PATHS = [
+    '(0,0) circle[radius=0.5]',
+    '(-0.5,-0.5) rectangle (0.5,0.5)',
+    '(0,0.5) -- (-0.5,-0.5) -- (0.5,-0.5) -- cycle',
+    '(0,0.5) -- (-0.5,0) -- (0,-0.5) -- (0.5,0) -- cycle',
+    '(0,-0.5) -- (-0.5,0.5) -- (0.5,0.5) -- cycle',
+    '(-0.18,0.5) -- (0.18,0.5) -- (0.18,0.18) -- (0.5,0.18) -- (0.5,-0.18) -- (0.18,-0.18) -- (0.18,-0.5) -- (-0.18,-0.5) -- (-0.18,-0.18) -- (-0.5,-0.18) -- (-0.5,0.18) -- (-0.18,0.18) -- cycle',
+]
+
+
+def marker_tex(v, position, size):
+    # Both panels call exactly the same path/color renderer; only size differs.
+    color, shape = divmod(v, 6)
+    return (rf'\begin{{scope}}[shift={{{position}}},x={size},y={size}]' + '\n'
+            + rf'\path[fill=exampleV{color}] {MARKER_PATHS[shape]};' + '\n'
+            + r'\end{scope}')
+
+
 def main():
     data, H = build_example()
     out = ROOT / 'figures'
@@ -293,15 +313,26 @@ def main():
         supports.append(f'T_{ell}&=' + r'\{' + ','.join(map(str, positions)) + r'\}' + (r',\\' if ell < 3 else '.'))
     supports.append(r'\end{aligned}')
     (out / 'example34_support.tex').write_text('\n'.join(supports) + '\n')
+    definitions = [rf'\definecolor{{exampleV{ell}}}{{RGB}}{{{r},{g},{b}}}'
+                   for ell, (r, g, b) in enumerate(MARKER_COLORS)]
+    (out / 'example34_symbols.tex').write_text('\n'.join(definitions) + '\n')
+    strip = [r'% Nonzero entries are the same symbols as the graph vertices.',
+             r'\draw[black!45,thin] (0,-5.45) rectangle (6.8,-5.6625);']
+    for boundary in [1.7, 3.4, 5.1]:
+        strip.append(rf'\draw[black!45,thin] ({boundary},-5.45) -- ({boundary},-5.6625);')
+    for v, column in enumerate(data['support_column_indices']):
+        x = (column + 0.5) * 6.8 / 96
+        strip.append(marker_tex(v, f'({x:.8f},-5.55625)', '0.62mm'))
+    (out / 'example34_codeword.tex').write_text('\n'.join(strip) + '\n')
+    assert len(set((v // 6, v % 6) for v in range(24))) == 24
     assert len(GRAPH_POSITIONS) == 24
-    lines = [r'\definecolor{exampleJzero}{RGB}{0,114,178}',
+    lines = [r'\input{figures/example34_symbols.tex}', r'\definecolor{exampleJzero}{RGB}{0,114,178}',
              r'\definecolor{exampleJone}{RGB}{213,94,0}',
              r'\definecolor{exampleJtwo}{RGB}{0,158,115}',
              r'\begin{tikzpicture}[x=1cm,y=1cm,',
              r'  g0/.style={exampleJzero,line width=0.7pt},',
              r'  g1/.style={exampleJone,dashed,line width=0.85pt},',
              r'  g2/.style={exampleJtwo,densely dotted,line width=1pt,preaction={draw=white,solid,line width=2.2pt}},',
-             r'  vertex/.style={circle,draw=black,line width=0.25pt,fill=black,minimum size=1.6mm,inner sep=0pt},',
              r'  vertexlabel/.style={font=\scriptsize,inner sep=0pt,text=black}]']
     for v, (x, y) in enumerate(GRAPH_POSITIONS):
         lines.append(f'\\coordinate (v{v}) at ({x:.5f},{y:.5f});')
@@ -314,7 +345,8 @@ def main():
         else:
             lines.append(f'\\draw[g{j}] (v{u}) -- (v{v});')
     for v, (ell, t) in enumerate(data['support']):
-        lines.append(f'\\node[vertex] at (v{v}) {{}};')
+        lines.append(f'\\fill[white] (v{v}) circle[radius=1.1mm];')
+        lines.append(marker_tex(v, f'(v{v})', '2mm'))
         x, y = GRAPH_POSITIONS[v]
         cx, cy = (2.0 if x > 0 else -2.0), (2.0 if y > 0 else -2.0)
         # Put the small label 4 mm inward, in the empty hexagon interior.

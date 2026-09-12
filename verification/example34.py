@@ -301,7 +301,8 @@ def main():
              r'  g0/.style={exampleJzero,line width=0.7pt},',
              r'  g1/.style={exampleJone,dashed,line width=0.85pt},',
              r'  g2/.style={exampleJtwo,densely dotted,line width=1pt,preaction={draw=white,solid,line width=2.2pt}},',
-             r'  vertex/.style={circle,draw=black!70,line width=0.5pt,fill=white,minimum size=8.5mm,inner sep=0pt,font=\small}]']
+             r'  vertex/.style={circle,draw=black,line width=0.25pt,fill=black,minimum size=1.6mm,inner sep=0pt},',
+             r'  vertexlabel/.style={font=\scriptsize,inner sep=0pt,text=black}]']
     for v, (x, y) in enumerate(GRAPH_POSITIONS):
         lines.append(f'\\coordinate (v{v}) at ({x:.5f},{y:.5f});')
     for edge in data['edges']:
@@ -313,7 +314,13 @@ def main():
         else:
             lines.append(f'\\draw[g{j}] (v{u}) -- (v{v});')
     for v, (ell, t) in enumerate(data['support']):
-        lines.append(f'\\node[vertex] at (v{v}) {{$({ell},{t})$}};')
+        lines.append(f'\\node[vertex] at (v{v}) {{}};')
+        x, y = GRAPH_POSITIONS[v]
+        cx, cy = (2.0 if x > 0 else -2.0), (2.0 if y > 0 else -2.0)
+        # Put the small label 4 mm inward, in the empty hexagon interior.
+        radius = ((x - cx)**2 + (y - cy)**2)**0.5
+        lx, ly = x + 0.4 * (cx - x) / radius, y + 0.4 * (cy - y) / radius
+        lines.append(f'\\node[vertexlabel] at ({lx:.5f},{ly:.5f}) {{$({ell},{t})$}};')
     for j, x in enumerate([-2.7, -0.7, 1.3]):
         lines.append(f'\\draw[g{j}] ({x},-4.2) -- ({x+.6},-4.2) node[right,black,font=\\small] {{$j={j}$}};')
     lines.append(r'\end{tikzpicture}')

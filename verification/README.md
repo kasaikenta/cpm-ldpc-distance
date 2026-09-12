@@ -162,7 +162,7 @@ the reported distances rests on the algorithm's completeness argument, the
 archived complete runs, the independently checked upper-bound words, and the
 available rerun source. No proof-assistant or SAT nonexistence certificate is
 claimed. Source and data are available in the public repository linked above.
-The v1.1.1 tag identifies the published verification package for this table.
+The v1.1.2 tag identifies the published verification package for this table.
 
 ## Current and historical archives
 

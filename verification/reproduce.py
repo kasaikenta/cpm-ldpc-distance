@@ -5,8 +5,11 @@ Repeat the same command to continue. L=5,J=4 uses its fast full enumeration.
 import argparse,collections,concurrent.futures,hashlib,json,os,signal,subprocess,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-p=argparse.ArgumentParser();p.add_argument('--J',type=int,choices=(3,4),required=True);p.add_argument('--L',type=int,choices=range(5,9),required=True);p.add_argument('--threads',type=int,default=1);p.add_argument('--seconds',type=int,default=60);p.add_argument('--shards',type=int,default=32);p.add_argument('--output-dir',type=Path,default=ROOT/'verification/recomputed');a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--J',type=int,choices=(3,4),required=True);p.add_argument('--L',type=int,choices=range(4,9),required=True);p.add_argument('--threads',type=int,default=1);p.add_argument('--seconds',type=int,default=60);p.add_argument('--shards',type=int,default=32);p.add_argument('--output-dir',type=Path,default=ROOT/'verification/recomputed');a=p.parse_args()
 assert a.threads>0 and a.seconds>0 and a.shards>0
+if (a.J,a.L)==(4,4):p.error('The table has no J=4,L=4 code; use J<L.')
+if (a.J,a.L)==(3,4):
+ subprocess.run([os.sys.executable,str(ROOT/'verification/independent24.py')],check=True);raise SystemExit(0)
 if (a.J,a.L)==(4,5):
  subprocess.run([os.sys.executable,str(ROOT/'verification/enumerate_j4_l5.py')],check=True);raise SystemExit(0)
 c=next(c for c in json.loads((ROOT/'joint_examples.json').read_text()) if (c['J'],c['L'])==(a.J,a.L));cutoff=(24 if a.J==3 else c['d_lower'])-2

@@ -17,6 +17,7 @@ All array entries, including the zero first row and column, are given in
 
 | J | L | P | n | k | Minimum distance d |
 |---:|---:|---:|---:|---:|:---|
+| 3 | 4 | 24 | 96 | 26 | 24 |
 | 3 | 5 | 45 | 225 | 92 | 24 |
 | 3 | 6 | 71 | 426 | 215 | 24 |
 | 3 | 7 | 111 | 777 | 446 | 24 |
@@ -28,13 +29,13 @@ All array entries, including the zero first row and column, are given in
 
 The distance of the J=4, L=8 example remains between 30 and 46; its exact
 value is not known. The values of P in this table are not claimed to be minimal.
-A separate J=3, L=4, P=24 example has parameters [96,26,24]; its full exponent
-array is in [verification/independent24.py](verification/independent24.py).
+The first entry, J=3, L=4, P=24, is the [96,26,24] example used to illustrate
+the parity-check matrix, a weight-24 codeword, and the graph of paired positions.
 
 ## Get the published version
 
 ```sh
-git clone --branch v1.0.0 https://github.com/kasaikenta/cpm-ldpc-distance.git
+git clone --branch v1.1.0 https://github.com/kasaikenta/cpm-ldpc-distance.git
 cd cpm-ldpc-distance
 ```
 
@@ -46,14 +47,18 @@ so there is no separate data download or Git LFS setup.
 
 ```sh
 python3 verification/check_records.py
+python3 verification/example34.py
 python3 verification/independent24.py
 python3 verification/enumerate_j4_l5.py
 python3 verification/review_checks.py
 ```
 
-- `check_records.py` checks the eight arrays, binary ranks, explicit codewords,
+- `check_records.py` checks the nine arrays, binary ranks, explicit codewords,
   archive hashes, and completion and coverage of the recorded search partitions.
   It reads archives directly without unpacking thousands of files.
+- `example34.py` checks the first table entry and generates the matrix bitmap
+  and TikZ graph in `figures/`. The 72 highlighted matrix entries correspond
+  exactly to the 36 graph edges, with matching colors for each block row.
 - `independent24.py` independently enumerates all 67,108,863 nonzero words of
   the [96,26,24] example; it finds 668 words of weight 24.
 - `enumerate_j4_l5.py` independently enumerates all 67,108,863 nonzero words of
@@ -69,6 +74,7 @@ pruning arguments, and precise scope of each check are explained in the
 ## Repeat a distance search
 
 ```sh
+python3 verification/reproduce.py --J 3 --L 4
 python3 verification/reproduce.py --J 3 --L 5 --threads 4 --seconds 60
 python3 verification/reproduce.py --J 4 --L 6 --threads 4 --seconds 60
 ```
@@ -76,7 +82,7 @@ python3 verification/reproduce.py --J 4 --L 6 --threads 4 --seconds 60
 Repeat the same command to resume saved search frontiers. Completed partitions
 are skipped. A time-limited run reports its incomplete scope; a lower bound is
 reported only after all assigned partitions finish. Large cases can require
-substantial computation. J=4, L=5 uses the independent full enumeration instead.
+substantial computation. J=3, L=4 and J=4, L=5 use independent full enumeration instead.
 
 The search program uses position index `t*L+ell`. This is a fixed permutation
 of the block-column order `ell*P+t` in the definition of H and preserves distance.
@@ -89,16 +95,23 @@ checked: every command above selects classical mode with no stabilizer rows.
 - `joint_examples.json`: table data and computation metadata.
 - `verification/`: Python checks and the C++ search and enumeration sources.
 - `supporting_material/`: baseline J=3 and J=4 records and the J=4 refinements.
+- `figures/`: matrix and codeword PNG bitmaps, a complete TikZ graph, and the
+  support and graph data for the J=3, L=4 example.
+  Generate these files with `python3 verification/example34.py`; only typesetting
+  the TikZ source requires LaTeX and TikZ.
 - `SHA256SUMS`: hashes of the published source, data, and documentation files.
 
-The tag `v1.0.0` identifies the verification package for the table above.
+The tag `v1.1.0` identifies the verification package for the table above.
+The earlier tag `v1.0.0` retains the original eight-entry package.
 Historical archive filenames retain their original distance targets; the table
 and refinement records give the current results.
 
 ## 日本語の案内
 
-論文に掲載した8符号の完全な指数配列、距離の検証プログラム、探索記録を公開しています。
+論文に掲載した9符号の完全な指数配列、距離の検証プログラム、探索記録を公開しています。
 符号の定義とパラメータは上の表と `codes.json` にあります。
-まず上記の4つの検証コマンドを実行してください。
+上記の検証コマンドを実行してください。
+`example34.py` は J=3, L=4 の例の行列ビットマップとTikZグラフを生成します。
+行列の強調した72個の1とグラフの36辺の対応も確認します。
 探索そのものを再実行する場合は `reproduce.py` を使い、同じコマンドで再開できます。
 J=4, L=8 の最小距離は未確定で、現在の範囲は 30 <= d <= 46 です。

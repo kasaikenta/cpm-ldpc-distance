@@ -11,6 +11,12 @@ def archive(j):
  return zipfile.ZipFile(path)
 def main():
  table=json.loads((ROOT/'joint_examples.json').read_text());summary=[]
+ assert sorted((c['J'],c['L']) for c in table)==[(3,l) for l in range(4,9)]+[(4,l) for l in range(5,9)]
+ from example34 import build_example
+ small,H=build_example()
+ small_case=next(c for c in table if (c['J'],c['L'])==(3,4))
+ assert (small_case['d'],small_case['minimum_weight_word_count'])==(24,668)
+ summary.append(dict(J=3,L=4,P=24,k=26,witness_weight=24,witness_checks_passed=True,rank_verified=True,reported_exact_distance=24,lower_bound_method='Full enumeration by independent24.py; not rerun by this record checker'))
  for j in (3,4):
   with archive(j) as z:
    records=json.loads(z.read('results/best_verified.json'))
@@ -61,6 +67,8 @@ def main():
   for k in ['E','P','n','k','d','d_lower','d_upper']:assert tc[k]==c[k]
   old=next(s for s in summary if (s['J'],s['L'])==(4,c['L']))
   old.update(d_lower=c['d_lower'],d_upper=c['d_upper'],exact_distance=c['d'],witness_weight=c['d_upper'],refined_record_count=len(c.get('certificates',[])))
+ summary.sort(key=lambda c:(c['J'],c['L']))
+ assert len(summary)==len(table)==9
  (ROOT/'verification/record_checks.json').write_text(json.dumps(summary,indent=2)+'\n')
  print(json.dumps(summary))
 if __name__=='__main__':main()

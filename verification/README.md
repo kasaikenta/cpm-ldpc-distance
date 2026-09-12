@@ -12,16 +12,17 @@ stabilizer space or quantum-code equivalence is used.
 ```
 python3 verification/independent24.py
 python3 verification/check_records.py
+python3 verification/example34.py
 python3 verification/enumerate_j4_l5.py
 python3 verification/review_checks.py
 python3 verification/reproduce.py --J 4 --L 5 --threads 4
 ```
 
-Python 3.10+ and a C++17 compiler are required. The independent24 command enumerates all 2^26-1 nonzero words of the separate
+Python 3.10+ and a C++17 compiler are required. The independent24 command enumerates all 2^26-1 nonzero words of the first table
 [96,26,24] example and checks that exactly 668 words have weight 24.
 The check_records command reads the
 J3/J4 archives in `supporting_material/` without extracting thousands of files.
-It checks all eight table entries, all referenced run-record hashes, each root
+It checks all nine table entries, all referenced run-record hashes, each root
 and partition, the input arrays, ranks, and actual upper-bound codewords. The J=3 table entries have exact distance 24.
 The J=4 entries use the fixed (L,P)=(5,23),(6,29),(7,43),(8,73).
 Their exact distances are established for L=5 (30), L=6 (28), and L=7 (32).
@@ -34,6 +35,16 @@ It does **not** rerun the lower-bound search. The record names and archived
 input tables provide experiment provenance; the JSON run records do not embed
 the full exponent arrays and are not independently checkable nonexistence proofs.
 Their historical filenames contain “certificate” but denote solver run records.
+For the J=3,L=4 table entry, the record checker verifies the matrix, rank, and
+a weight-24 word; use independent24.py to re-establish the lower bound by enumeration.
+
+The example34 command generates the matrix and codeword bitmaps and the TikZ graph
+in figures/. Its 24 support positions give 36 graph edges. Each edge corresponds
+to two highlighted matrix entries in the same check row, for 72 highlighted 1s.
+The three block-row colors agree between the matrix and graph. All other 1s are
+light gray. This command also checks the syndrome, all pairings, and connectivity.
+The figure generator uses only the Python standard library; typesetting its graph
+requires LaTeX with TikZ.
 
 The review_checks command independently enumerates every nonzero kernel word of 54
 small codes, including J=2,3,4, prime/composite lift sizes, repeated exponents,
@@ -45,7 +56,10 @@ implementation and examples; the general lower bound uses the paper's proof.
 
 The reproduce command reconstructs H from the displayed E and searches through
 `d_lower-2` for the selected example, using the even-weight property.
-`--J` may be 3 or 4 and `--L` may be 5,6,7,8. For J=4,L=5, it instead runs
+`--J` may be 3 or 4. For J=3, `--L` may be 4,5,6,7,8; for J=4, it may be 5,6,7,8.
+For J=3,L=4, it runs the independent enumeration of all 67,108,863 nonzero words,
+obtaining minimum weight 24 and exactly 668 words of that weight.
+For J=4,L=5, it instead runs
 the short independent enumeration of all 67,108,863 nonzero words, obtaining
 minimum weight 30 and exactly 23 words of that weight.
 
@@ -148,7 +162,7 @@ the reported distances rests on the algorithm's completeness argument, the
 archived complete runs, the independently checked upper-bound words, and the
 available rerun source. No proof-assistant or SAT nonexistence certificate is
 claimed. Source and data are available in the public repository linked above.
-The v1.0.0 tag identifies the published verification package for this table.
+The v1.1.0 tag identifies the published verification package for this table.
 
 ## Current and historical archives
 

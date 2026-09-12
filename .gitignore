@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.DS_Store
+verification/recomputed/
+verification/record_checks.json
+verification/independent24.json
+verification/j4_l5_enumeration.json
+verification/review_checks.json

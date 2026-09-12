@@ -13,8 +13,169 @@ import struct
 import zlib
 
 ROOT = Path(__file__).resolve().parents[1]
-# Fixed drawing coordinates, indexed by the lexicographically ordered support.
-GRAPH_POSITIONS = [[0.87143, -2.86537], [-1.03176, -2.11362], [0.07311, 1.15539], [-1.71429, -0.66179], [1.48707, 2.69853], [-1.78865, 2.2824], [1.9377, 0.57098], [0.29889, -1.18358], [-1.88946, -2.64101], [0.30923, -2.21712], [-1.2154, 2.86537], [-0.12519, 2.5411], [3.05, 0.85442], [-0.46832, 0.51083], [-2.96398, -1.40202], [1.72473, -1.20578], [-2.11521, 1.34726], [-1.22035, 0.9662], [2.4445, -1.46466], [0.63491, -0.57017], [-2.97874, -0.68991], [-0.43519, -0.43704], [-3.05, 1.31975], [1.67871, 1.48097]]
+# Four regular hexagons are the cycles formed by colors 0 and 1.
+# Coordinates are indexed by the lexicographically ordered support.
+# Selected color-2 edges curve around nonincident vertex circles.
+GRAPH_POSITIONS = [
+    [
+        -2.97861,
+        2.565
+    ],
+    [
+        -1.02139,
+        1.435
+    ],
+    [
+        2.97861,
+        1.435
+    ],
+    [
+        1.02139,
+        2.565
+    ],
+    [
+        2.0,
+        -3.13
+    ],
+    [
+        2.0,
+        -0.87
+    ],
+    [
+        -1.02139,
+        -2.565
+    ],
+    [
+        -2.97861,
+        -1.435
+    ],
+    [
+        -2.0,
+        3.13
+    ],
+    [
+        -2.0,
+        0.87
+    ],
+    [
+        2.97861,
+        -2.565
+    ],
+    [
+        1.02139,
+        -1.435
+    ],
+    [
+        -2.0,
+        -3.13
+    ],
+    [
+        -2.0,
+        -0.87
+    ],
+    [
+        -1.02139,
+        2.565
+    ],
+    [
+        -2.97861,
+        1.435
+    ],
+    [
+        2.97861,
+        2.565
+    ],
+    [
+        1.02139,
+        1.435
+    ],
+    [
+        -2.97861,
+        -2.565
+    ],
+    [
+        -1.02139,
+        -1.435
+    ],
+    [
+        2.0,
+        3.13
+    ],
+    [
+        2.0,
+        0.87
+    ],
+    [
+        2.97861,
+        -1.435
+    ],
+    [
+        1.02139,
+        -2.565
+    ]
+]
+GRAPH_CURVES = {
+    "0,18": [
+        [
+            -4.178610000000001,
+            0.855
+        ],
+        [
+            -4.178610000000001,
+            -0.855
+        ]
+    ],
+    "2,6": [
+        [
+            2.210962091615905,
+            -0.4640187582825712
+        ],
+        [
+            0.029100620858714676,
+            -0.9488239541920475
+        ]
+    ],
+    "3,7": [
+        [
+            -0.029100620858714232,
+            0.9488239541920477
+        ],
+        [
+            -2.2109620916159045,
+            0.46401875828257144
+        ]
+    ],
+    "14,22": [
+        [
+            0.029100620858714232,
+            0.9488239541920477
+        ],
+        [
+            2.2109620916159045,
+            0.46401875828257144
+        ]
+    ],
+    "15,23": [
+        [
+            -2.210962091615905,
+            -0.4640187582825712
+        ],
+        [
+            -0.029100620858714676,
+            -0.9488239541920475
+        ]
+    ],
+    "10,16": [
+        [
+            4.178610000000001,
+            -0.855
+        ],
+        [
+            4.178610000000001,
+            0.855
+        ]
+    ]
+}
 
 
 def build_example():
@@ -139,16 +300,22 @@ def main():
              r'\begin{tikzpicture}[x=1cm,y=1cm,',
              r'  g0/.style={exampleJzero,line width=0.7pt},',
              r'  g1/.style={exampleJone,dashed,line width=0.85pt},',
-             r'  g2/.style={exampleJtwo,densely dotted,line width=1pt},',
-             r'  vertex/.style={draw=black!45,fill=white,rounded corners=1.5pt,inner sep=1.5pt,font=\small}]']
+             r'  g2/.style={exampleJtwo,densely dotted,line width=1pt,preaction={draw=white,solid,line width=2.2pt}},',
+             r'  vertex/.style={circle,draw=black!70,line width=0.5pt,fill=white,minimum size=8.5mm,inner sep=0pt,font=\small}]']
     for v, (x, y) in enumerate(GRAPH_POSITIONS):
         lines.append(f'\\coordinate (v{v}) at ({x:.5f},{y:.5f});')
     for edge in data['edges']:
-        lines.append(f"\\draw[g{edge['j']}] (v{edge['u']}) -- (v{edge['v']});")
+        u, v, j = edge['u'], edge['v'], edge['j']
+        controls = GRAPH_CURVES.get(f'{u},{v}')
+        if controls:
+            a, b = controls
+            lines.append(f'\\draw[g{j}] (v{u}) .. controls ({a[0]:.5f},{a[1]:.5f}) and ({b[0]:.5f},{b[1]:.5f}) .. (v{v});')
+        else:
+            lines.append(f'\\draw[g{j}] (v{u}) -- (v{v});')
     for v, (ell, t) in enumerate(data['support']):
         lines.append(f'\\node[vertex] at (v{v}) {{$({ell},{t})$}};')
     for j, x in enumerate([-2.7, -0.7, 1.3]):
-        lines.append(f'\\draw[g{j}] ({x},-3.8) -- ({x+.6},-3.8) node[right,black,font=\\small] {{$j={j}$}};')
+        lines.append(f'\\draw[g{j}] ({x},-4.2) -- ({x+.6},-4.2) node[right,black,font=\\small] {{$j={j}$}};')
     lines.append(r'\end{tikzpicture}')
     (out / 'example34_graph.tex').write_text('\n'.join(lines) + '\n')
     print(json.dumps({k: data[k] for k in ['J', 'L', 'P', 'rank', 'weight', 'vertices', 'edge_count', 'connected', 'row_weight_counts', 'all_checks_passed']}))

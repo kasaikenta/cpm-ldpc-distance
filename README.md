@@ -35,7 +35,7 @@ the parity-check matrix, a weight-24 codeword, and the graph of paired positions
 ## Get the published version
 
 ```sh
-git clone --branch v1.1.0 https://github.com/kasaikenta/cpm-ldpc-distance.git
+git clone --branch v1.1.1 https://github.com/kasaikenta/cpm-ldpc-distance.git
 cd cpm-ldpc-distance
 ```
 
@@ -101,7 +101,7 @@ checked: every command above selects classical mode with no stabilizer rows.
   the TikZ source requires LaTeX and TikZ.
 - `SHA256SUMS`: hashes of the published source, data, and documentation files.
 
-The tag `v1.1.0` identifies the verification package for the table above.
+The tag `v1.1.1` identifies the verification package for the table above.
 The earlier tag `v1.0.0` retains the original eight-entry package.
 Historical archive filenames retain their original distance targets; the table
 and refinement records give the current results.

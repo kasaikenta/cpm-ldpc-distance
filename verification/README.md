@@ -162,7 +162,7 @@ the reported distances rests on the algorithm's completeness argument, the
 archived complete runs, the independently checked upper-bound words, and the
 available rerun source. No proof-assistant or SAT nonexistence certificate is
 claimed. Source and data are available in the public repository linked above.
-The v1.1.3 tag identifies the published verification package for this table.
+The v1.1.4 tag identifies the published verification package for this table.
 
 ## Current and historical archives
 
@@ -178,3 +178,6 @@ The TikZ codeword strip and graph use identical symbols; vertex coordinates,
 edges, and the highlighted matrix entries are unchanged.
 `figures/example34_symbols.tex` defines their four colors.
 The paper uses `figures/example34_codeword.tex`; the original binary PNG is retained as a reference.
+
+In v1.1.4 the TikZ codeword strip spans 16 cm, with 1.5 mm symbols.
+The graph coordinates use a scale of 0.82 cm per unit, retaining 2 mm vertex symbols and 7 pt labels.

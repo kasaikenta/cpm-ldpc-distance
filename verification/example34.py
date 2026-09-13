@@ -317,19 +317,19 @@ def main():
                    for ell, (r, g, b) in enumerate(MARKER_COLORS)]
     (out / 'example34_symbols.tex').write_text('\n'.join(definitions) + '\n')
     strip = [r'% Nonzero entries are the same symbols as the graph vertices.',
-             r'\draw[black!45,thin] (0,-5.45) rectangle (6.8,-5.6625);']
-    for boundary in [1.7, 3.4, 5.1]:
-        strip.append(rf'\draw[black!45,thin] ({boundary},-5.45) -- ({boundary},-5.6625);')
+             r'\draw[black!45,thin] (0,-12.35) rectangle (16,-12.85);']
+    for boundary in [4, 8, 12]:
+        strip.append(rf'\draw[black!45,thin] ({boundary},-12.35) -- ({boundary},-12.85);')
     for v, column in enumerate(data['support_column_indices']):
-        x = (column + 0.5) * 6.8 / 96
-        strip.append(marker_tex(v, f'({x:.8f},-5.55625)', '0.62mm'))
+        x = (column + 0.5) * 16 / 96
+        strip.append(marker_tex(v, f'({x:.8f},-12.6)', '1.5mm'))
     (out / 'example34_codeword.tex').write_text('\n'.join(strip) + '\n')
     assert len(set((v // 6, v % 6) for v in range(24))) == 24
     assert len(GRAPH_POSITIONS) == 24
     lines = [r'\input{figures/example34_symbols.tex}', r'\definecolor{exampleJzero}{RGB}{0,114,178}',
              r'\definecolor{exampleJone}{RGB}{213,94,0}',
              r'\definecolor{exampleJtwo}{RGB}{0,158,115}',
-             r'\begin{tikzpicture}[x=1cm,y=1cm,',
+             r'\begin{tikzpicture}[x=0.82cm,y=0.82cm,',
              r'  g0/.style={exampleJzero,line width=0.7pt},',
              r'  g1/.style={exampleJone,dashed,line width=0.85pt},',
              r'  g2/.style={exampleJtwo,densely dotted,line width=1pt,preaction={draw=white,solid,line width=2.2pt}},',

@@ -35,7 +35,7 @@ the parity-check matrix, a weight-24 codeword, and the graph of paired positions
 ## Get the published version
 
 ```sh
-git clone --branch v1.1.3 https://github.com/kasaikenta/cpm-ldpc-distance.git
+git clone --branch v1.1.4 https://github.com/kasaikenta/cpm-ldpc-distance.git
 cd cpm-ldpc-distance
 ```
 
@@ -101,7 +101,7 @@ checked: every command above selects classical mode with no stabilizer rows.
   the TikZ source requires LaTeX and TikZ.
 - `SHA256SUMS`: hashes of the published source, data, and documentation files.
 
-The tag `v1.1.3` identifies the verification package for the table above.
+The tag `v1.1.4` identifies the verification package for the table above.
 The earlier tag `v1.0.0` retains the original eight-entry package.
 Historical archive filenames retain their original distance targets; the table
 and refinement records give the current results.
@@ -121,3 +121,7 @@ so each nonzero component can be matched with its graph vertex. Vertex coordinat
 edges, codeword support, and matrix highlights are unchanged.
 The generated TikZ strip is `figures/example34_codeword.tex`; both panels use
 `figures/example34_symbols.tex` for colors. The binary PNG remains a reference.
+
+Version v1.1.4 expands the codeword strip to 16 cm with 1.5 mm symbols.
+The paper places the graph below the full-width matrix and codeword panel.
+Graph coordinates are scaled by 0.82 while vertex symbols and label text retain their sizes.
